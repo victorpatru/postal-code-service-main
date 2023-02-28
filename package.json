@@ -1,0 +1,25 @@
+{
+  "scripts": {
+    "script": "node src/script.js",
+    "download": "node src/scripts/download.js",
+    "geocode": "node src/scripts/geocode.js",
+    "map": "node src/scripts/map.js",
+    "validate": "node src/scripts/validate.js",
+    "sql": "node src/scripts/sql.js",
+    "deploy": "node src/scripts/deploy.js",
+    "readme": "node src/scripts/readme.js --force",
+    "process": "node src/scripts/process.js --force",
+    "drop-partition": "node src/scripts/drop-partition.js"
+  },
+  "dependencies": {
+    "cli-progress": "^3.11.2",
+    "decompress": "^4.2.1",
+    "dotenv": "^16.0.3",
+    "iso-3166": "^4.0.1",
+    "jest": "^29.2.2",
+    "node-fetch": "^2.6.7",
+    "pg": "^8.8.0",
+    "puppeteer": "^19.2.2",
+    "yargs": "^17.6.2"
+  }
+}
