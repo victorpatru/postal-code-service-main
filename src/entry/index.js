@@ -65,6 +65,8 @@ const getRegionCode = async ( entry, countryCode ) => {
 
 const addRegionCode = async ( entry, countryCode ) => {
     entry.region_code = await getRegionCode( entry, countryCode );
+    // Adding data to the admin_code_1 for our GB processed.tx
+    entry.admin_code_1 = await getRegionCode( entry, countryCode );
 }
 
 module.exports = {
