@@ -7,8 +7,7 @@ const downloadFromFallback = async ( countryCode ) => {
     try {
         const { default: fallback } = await import( `../../fallback/${ countryCode }/${ countryCode }.js` );
         const entries = await fallback.getEntries();
-        const unique = getUniqueEntries( entries );
-        const output = getOutputForEntries( unique );
+        const output = getOutputForEntries( entries );
         
         createFile( `./data/${ countryCode }`, 'raw.txt', output )
         

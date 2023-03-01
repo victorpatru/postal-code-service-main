@@ -1,4 +1,8 @@
 const fs = require( 'fs' );
+const readline = require("readline");
+const csv = require('fast-csv');
+
+
 
 const countryFoldersList = require( './country-folders-list' );
 
@@ -27,6 +31,34 @@ const getEntriesForCountries = async ( countryCodes ) => {
 
 const getFileContent = ( filepath ) => {
     return fs.readFileSync( filepath, { encoding: 'utf8' } );
+}
+
+const getFileContentStream = async (filepath, countryCode) => {
+    const data = []
+
+    return new Promise( resolve => {
+
+        fs.createReadStream(filepath, { encoding: 'utf8' })
+        .pipe(csv.parse({ headers: true }))
+        .on('error', error => console.error(error))
+        .on('data', row => {
+           data.push({
+            country_code: countryCode,
+            municipality: row['Ward'],
+            postal_code: row['Postcode'],
+            admin_name_1: row['District'],
+            admin_code_1: '',
+            admin_name_2: row['County'],
+            admin_code_2: '',
+            latitude: row['Latitude'],
+            longitude: row['Longitude'],
+            accuracy: 6,
+            region_code: ''
+           })
+        })
+        .on('end', () => resolve(data));
+    })
+
 }
 
 const createFile = ( directory, filename, output ) => {
@@ -100,6 +132,7 @@ module.exports = {
     createFile,
     getCountryName,
     getFileContent,
+    getFileContentStream,
     getConfig,
     getEntriesFromFile,
     getEntriesForCountries,
